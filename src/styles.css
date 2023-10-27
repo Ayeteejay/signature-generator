@@ -1,0 +1,50 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+p,
+a,
+li,
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Colors */
+  --smoke: #fff;
+  --bronze: #9c794f;
+  --iron: #222222;
+  --ink: #000;
+  --slate: #666666;
+
+  /* Fonts */
+  --rift: "Rift", sans-serif;
+  --elza: "Elza", sans-serif;
+  --wilson: "Wilson-wells", serif;
+  --gin-lines: "Gin-lines", serif;
+  --gin-regular: "Gin-regular", serif;
+
+  /* Font Sizes */
+  --font-small: 0.8rem;
+  --font-medium: 1.25rem;
+  --font-large: 2rem;
+  --font-extra-large: 6rem;
+
+  /* Media Queries */
+  @media screen and (max-width: 576px) {
+    --font-extra-large: 3rem;
+  }
+}
