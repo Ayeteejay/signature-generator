@@ -2,24 +2,9 @@ import { useState } from "react";
 import styled from "styled-components";
 import Layout from "./components/Layout";
 import { PrimaryButton } from "./components/Buttons";
+import Hero from "./components/Hero";
 import SignatureRenderer from "./components/Renderer";
 import Clipboard from "./components/Copy";
-
-const Main = styled.div`
-  h1 {
-    color: var(--smoke);
-    font-family: var(--gin-regular);
-    font-size: var(--font-extra-large);
-    line-height: 1.1;
-    margin: 0 0 2rem 0;
-  }
-  p {
-    color: var(--smoke);
-    font-family: var(--elza);
-    font-size: var(--font-medium);
-    line-height: 1.5;
-  }
-`;
 
 const SignatureWrapper = styled.div`
   position: relative;
@@ -69,6 +54,11 @@ const InputSignature = styled.div`
     padding: 1.75rem 1.25rem;
     background: none;
     border: none;
+    transition: all 300ms;
+    &:focus {
+      background: var(--tombstone);
+      outline: none;
+    }
   }
   input.full-name {
     border-right: 1px solid var(--slate);
@@ -82,7 +72,7 @@ const InputSignature = styled.div`
   }
   ::placeholder {
     color: var(--smoke);
-    opacity: 0.5;
+    opacity: 0.65;
   }
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -120,6 +110,7 @@ const GeneratedSignature = styled.div`
     margin: 0 0 6px 0;
   }
   p.success-message {
+    color: var(--smoke);
     font-family: var(--rift);
     font-size: var(--font-large);
     font-weight: bold;
@@ -187,69 +178,63 @@ export default function App() {
 
   return (
     <Layout>
-      <Main>
-        <h1>Create your email signature</h1>
-        <p>
-          This is a demo page showing the capabilities of our email signature
-          generator. Want to set this up for your organization? Download the
-          bundle today!
-        </p>
-        <SignatureWrapper>
-          <div className="signature">
-            <div style={{ display: generateEmail ? "block" : "none" }}>
-              <InputSignature>
-                <input
-                  className="full-name"
-                  placeholder="Full Name"
-                  name="full_name"
-                  onChange={handleInputChange}
-                  type="text"
-                  value={emailFields.full_name}
-                ></input>
-                <input
-                  className="pronouns"
-                  placeholder="Your Pronouns (They/Them)"
-                  name="pronouns"
-                  onChange={handleInputChange}
-                  type="text"
-                  value={emailFields.pronouns}
-                ></input>
-                <input
-                  className="title"
-                  placeholder="Your Title/Role"
-                  name="title"
-                  onChange={handleInputChange}
-                  type="text"
-                  value={emailFields.title}
-                ></input>
-                <input
-                  placeholder="Phone No."
-                  name="phone"
-                  type="telephone"
-                  onChange={handleInputChange}
-                  value={emailFields.phone}
-                ></input>
-              </InputSignature>
-            </div>
-            <GeneratedSignature
-              style={{
-                display: !generateEmail ? "block" : "none",
+      <Hero />
+      <SignatureWrapper>
+        <div className="signature">
+          <div style={{ display: generateEmail ? "block" : "none" }}>
+            <InputSignature>
+              <input
+                className="full-name"
+                placeholder="Full Name"
+                name="full_name"
+                onChange={handleInputChange}
+                type="text"
+                value={emailFields.full_name}
+              ></input>
+              <input
+                className="pronouns"
+                placeholder="Your Pronouns (They/Them)"
+                name="pronouns"
+                onChange={handleInputChange}
+                type="text"
+                value={emailFields.pronouns}
+              ></input>
+              <input
+                className="title"
+                placeholder="Your Title/Role"
+                name="title"
+                onChange={handleInputChange}
+                type="text"
+                value={emailFields.title}
+              ></input>
+              <input
+                placeholder="Phone No."
+                name="phone"
+                type="telephone"
+                onChange={handleInputChange}
+                value={emailFields.phone}
+              ></input>
+            </InputSignature>
+          </div>
+          <GeneratedSignature
+            style={{
+              display: !generateEmail ? "block" : "none",
+            }}
+          >
+            <p className="success-message">
+              You're done! Copy and paste into your email client.
+            </p>
+            <Clipboard
+              data={{
+                default_text: "Copy Signature",
+                copied_text: "Copied!",
+                selection: "signature-container",
               }}
-            >
-              <p className="success-message">
-                You're done! Copy and paste into your email client.
-              </p>
-              <Clipboard
-                data={{
-                  default_text: "Copy Signature",
-                  copied_text: "Copied!",
-                  selection: "signature-container",
-                }}
-              />
-              <div id="signature-container" style={{ padding: "30px" }}>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: `
+            />
+            <div id="signature-container" style={{ padding: "30px" }}>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: `
                       <html>
                         <head>
                           <style>
@@ -269,117 +254,116 @@ export default function App() {
                         </head>
                       </html>
                     `,
-                  }}
+                }}
+              />
+              <div className="top-row">
+                <img
+                  src="/images/vssl.png"
+                  alt="VSSL flag logomark"
+                  width={35}
+                  height={26}
                 />
-                <div className="top-row">
-                  <img
-                    src="/images/vssl.png"
-                    alt="VSSL logomark"
-                    width={35}
-                    height={26}
-                  />
-                  <div>
-                    <div className="name-pronouns">
-                      <SignatureRenderer
-                        data={{
-                          color: "ink",
-                          size: "17px",
-                          text: emailFields.full_name,
-                          brackets: false,
-                          font_size: "regular",
-                        }}
-                      />
-                      <SignatureRenderer
-                        data={{
-                          color: "iron",
-                          size: "17px",
-                          text: emailFields.pronouns,
-                          brackets: true,
-                          font_size: "regular",
-                        }}
-                      />
-                    </div>
+                <div>
+                  <div className="name-pronouns">
+                    <SignatureRenderer
+                      data={{
+                        color: "ink",
+                        size: "17px",
+                        text: emailFields.full_name,
+                        brackets: false,
+                        font_size: "regular",
+                      }}
+                    />
                     <SignatureRenderer
                       data={{
                         color: "iron",
-                        size: "13px",
-                        text: emailFields.title,
-                        brackets: false,
-                        font_size: "small",
+                        size: "17px",
+                        text: emailFields.pronouns,
+                        brackets: true,
+                        font_size: "regular",
                       }}
                     />
                   </div>
-                </div>
-                <div className="middle-row">
-                  <p
-                    className="phone-number"
-                    style={{
-                      display:
-                        emailFields.phone.length > 0 ? "inline-block" : "none",
-                      fontFamily: "Elza, sans-serif !important",
+                  <SignatureRenderer
+                    data={{
+                      color: "iron",
+                      size: "13px",
+                      text: emailFields.title,
+                      brackets: false,
+                      font_size: "small",
                     }}
-                  >
-                    {emailFields.phone}
-                    {"\u00A0".repeat(2)}|{"\u00A0".repeat(2)}
-                  </p>
-                  <a
-                    href="https://vsslagency.com/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="site-link"
-                    id="vssl-site"
-                    style={{
-                      color: "black !important",
-                      textDecoration: "none !important",
-                      fontFamily: "Elza, sans-serif !important",
-                    }}
-                  >
-                    vsslagency.com
-                  </a>
+                  />
                 </div>
-                <img
-                  src="/images/one-percent.png"
-                  alt="1% For The Planet"
-                  width={48}
-                  height={20}
-                />
               </div>
-            </GeneratedSignature>
-            <PrimaryButton
-              data={{
-                title: `${generateEmail ? "Generate" : "Generate Another"}`,
-                action: generateEmail ? createSignature : createAgain,
-              }}
-            />
-          </div>
-          <div
-            style={{
-              display:
-                emailFields.full_name.length > 0 && emailFields.title.length > 0
-                  ? "none"
-                  : "block",
+              <div className="middle-row">
+                <p
+                  className="phone-number"
+                  style={{
+                    display:
+                      emailFields.phone.length > 0 ? "inline-block" : "none",
+                    fontFamily: "Elza, sans-serif !important",
+                  }}
+                >
+                  {emailFields.phone}
+                  {"\u00A0".repeat(2)}|{"\u00A0".repeat(2)}
+                </p>
+                <a
+                  href="https://vsslagency.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="site-link"
+                  id="vssl-site"
+                  style={{
+                    color: "black !important",
+                    textDecoration: "none !important",
+                    fontFamily: "Elza, sans-serif !important",
+                  }}
+                >
+                  vsslagency.com
+                </a>
+              </div>
+              <img
+                src="/images/one-percent.png"
+                alt="1% For The Planet"
+                width={48}
+                height={20}
+              />
+            </div>
+          </GeneratedSignature>
+          <PrimaryButton
+            data={{
+              title: `${generateEmail ? "Generate" : "Generate Another"}`,
+              action: generateEmail ? createSignature : createAgain,
             }}
-            className={`error-message ${
-              errorMessage ? "show-error-message" : ""
-            }`}
-          >
-            <p>
-              Bogus!{" "}
-              {emailFields.full_name.length === 0 && emailFields.title
-                ? "Full Name"
-                : ""}{" "}
-              {emailFields.title.length === 0 && emailFields.full_name
-                ? "Title/Role"
-                : ""}{" "}
-              {emailFields.full_name.length === 0 &&
-              emailFields.title.length === 0
-                ? `Full Name and Title/Role`
-                : ""}{" "}
-              missing.
-            </p>
-          </div>
-        </SignatureWrapper>
-      </Main>
+          />
+        </div>
+        <div
+          style={{
+            display:
+              emailFields.full_name.length > 0 && emailFields.title.length > 0
+                ? "none"
+                : "block",
+          }}
+          className={`error-message ${
+            errorMessage ? "show-error-message" : ""
+          }`}
+        >
+          <p>
+            Bogus!{" "}
+            {emailFields.full_name.length === 0 && emailFields.title
+              ? "Full Name"
+              : ""}{" "}
+            {emailFields.title.length === 0 && emailFields.full_name
+              ? "Title/Role"
+              : ""}{" "}
+            {emailFields.full_name.length === 0 &&
+            emailFields.title.length === 0
+              ? `Full Name and Title/Role`
+              : ""}{" "}
+            missing.
+          </p>
+        </div>
+      </SignatureWrapper>
     </Layout>
   );
 }

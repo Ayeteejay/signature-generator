@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 `;
 
 const Main = styled.main`
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   transition: all 600ms;
   @media screen and (max-width: 999px) {

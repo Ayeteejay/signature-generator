@@ -28,6 +28,7 @@ h4 {
   --bronze: #9c794f;
   --iron: #222222;
   --ink: #000;
+  --tombstone: #4b4b4b;
   --slate: #666666;
 
   /* Fonts */
@@ -41,10 +42,10 @@ h4 {
   --font-small: 0.8rem;
   --font-medium: 1.25rem;
   --font-large: 2rem;
-  --font-extra-large: 6rem;
+  --font-extra-large: 6.5rem;
 
   /* Media Queries */
   @media screen and (max-width: 576px) {
-    --font-extra-large: 3rem;
+    --font-extra-large: 4rem;
   }
 }
