@@ -5,7 +5,7 @@ const Navigation = styled.nav`
   display: flex;
   justify-content: space-between;
   position: relative;
-  margin:0 0 15rem 0;
+  margin: 0 0 15rem 0;
   @media screen and (max-width: 576px) {
     margin: 0 0 7rem 0;
   }

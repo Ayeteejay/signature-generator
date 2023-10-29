@@ -5,6 +5,7 @@ import { SecondaryButton } from "./Buttons";
 const Container = styled.div`
   margin: 1rem 0 1.5rem 0;
   display: inline-block;
+  min-width: 175px;
 `;
 
 export default function Clipboard({ data }) {

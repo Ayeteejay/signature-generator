@@ -3,7 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Grit from "../images/grit.jpg";
 
-const Wrapper = styled.div`
+const Container = styled.div`
   padding: 0 5rem;
   margin: 0;
   background: url(${Grit}) no-repeat center center / cover;
@@ -23,10 +23,10 @@ const Main = styled.main`
 
 export default function Layout({ children }) {
   return (
-    <Wrapper>
+    <Container>
       <Header />
       <Main>{children}</Main>
       <Footer />
-    </Wrapper>
+    </Container>
   );
 }
