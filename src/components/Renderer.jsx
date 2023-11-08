@@ -1,17 +1,12 @@
-// All styles inline for display in HTML email
 export default function SignatureRenderer({ data }) {
-  // Create unique keys
   const createIndex = (character, counter) => {
     return `${character}${counter}`;
-  };
-  // Format alt text
+  };  
   const upperCaseText = (text) => {
     return text.slice(0, 1).toUpperCase() + text.slice(1);
   };
-  let textArray = data.text !== undefined ? data.text.split("") : "";
-  // Set font size
-  const fontSize = data.font_size === "regular" ? 17 : 13;
-  // Filtering by character type
+  let textArray = data.text !== undefined ? data.text.split("") : "";  
+  const fontSize = data.font_size === "regular" ? 17 : 13;  
   const letterCharacterRegex = /[a-zA-Z]/;
   const numberCharacterRegex = /[0-9]/;
   const specialCharacterRegex = /[-!@#$%^&*()=+{}\\[\]\\|":;'`./]/;
