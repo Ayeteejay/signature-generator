@@ -1,15 +1,16 @@
 export default function SignatureRenderer({ data }) {
   const createIndex = (character, counter) => {
     return `${character}${counter}`;
-  };  
+  };
   const upperCaseText = (text) => {
     return text.slice(0, 1).toUpperCase() + text.slice(1);
   };
-  let textArray = data.text !== undefined ? data.text.split("") : "";  
-  const fontSize = data.font_size === "regular" ? 17 : 13;  
+  let textArray = data.text !== undefined ? data.text.split("") : "";
+  const fontSize = data.font_size === "regular" ? 17 : 13;
   const letterCharacterRegex = /[a-zA-Z]/;
   const numberCharacterRegex = /[0-9]/;
-  const specialCharacterRegex = /[-!@#$%^&*()=+{}\\[\]\\|":;'`./]/;
+  const specialCharacterRegex = /[!@#$%^&[\]{}|/:;=+-.]/;
+  const unsupportedCharacterRegex = /[*()`,"\\]/;
   return (
     <div style={{ display: `${data.text.length > 0 ? "flex" : "none"}` }}>
       <img
@@ -22,10 +23,13 @@ export default function SignatureRenderer({ data }) {
         height={17}
       />
       {textArray.map((character, index) => {
-        if (character === " ") {
+        if (character === " " || unsupportedCharacterRegex.test(character)) {
           return (
             <span
-              style={{ width: "3px", height: `${data.size}` }}
+              style={{
+                width: `${character === " " ? "3px" : "0px"}`,
+                height: `${data.size}`,
+              }}
               key={createIndex("whitespace", index)}
             >
               &nbsp;
