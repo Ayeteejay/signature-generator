@@ -49,7 +49,7 @@ export default function SignatureRenderer({ data }) {
               key={createIndex(character, index)}
               alt={`${upperCaseText(
                 data.color
-              )} colored character ${character.toUpperCase()}`}
+              )} character ${character.toUpperCase()}`}
               style={{ height: `${data.size}` }}
               src={`/images/${data.color}/${formattedCharacter}.png`}
               height={fontSize}
